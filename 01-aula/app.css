@@ -1,0 +1,67 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+body{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: indigo;
+    font-family: "inter", "sans-serif";
+    font-size: 20px;
+}
+
+.quiz{
+    width: 100%;
+    max-width: 480px;
+    margin-bottom: 48px;
+}
+
+.quiz.inativo{
+    pointer-events: none;
+}
+
+.resposta, img {
+    display: none;
+}
+
+h1{
+    font-size: 24px;
+}
+
+ol{
+    padding: 0;
+}
+
+li {
+    display: flex;
+    align-items: center;
+    padding-left: 16px;
+    background-color: ghostwhite;
+    margin: 0px;
+    margin-bottom: 8px;
+    height: 48px;
+    list-style-type: none;
+    font-size: 20px;
+}
+
+li:hover{
+    background-color: lavender;
+    cursor: pointer;
+}
+
+li.clicado {
+    background-color: deeppink;
+    color: white;
+}
+
+li.clicado.correto{
+    background-color: turquoise;
+    color: indigo;
+}
+
+img {
+    height: 48px;
+}
+
+.resultado {
+    font-weight: bold;
+}

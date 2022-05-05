@@ -1,0 +1,116 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+body{
+    
+    background-color: ghostwhite;
+    color: #696969;
+    font-family: "inter", "sans-serif";
+    font-size: 20px;
+    width: 100%;
+    max-width: 480px;
+    margin: auto;
+
+}
+
+h1{
+
+    color: #292929;
+    font-size: 32px;
+    display: flex;
+    justify-content: center;
+
+}
+
+h2{
+    
+    color: #292929;
+    font-size: 24px;
+
+}
+
+.botao{
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #97BE32;
+    color: ghostwhite;
+    border-radius: 20px;
+    width: 100px;
+    height: 50px;
+    margin: 64px auto;
+
+}
+
+.botao:hover{
+
+    background-color: #FDEF6F;
+    cursor: pointer;
+
+}
+
+.perguntas.inativo{
+
+    pointer-events: none;
+
+}
+
+.resposta, img {
+
+    display: none;
+
+}
+
+ol{
+
+    padding: 0;
+
+}
+
+li {
+
+    display: flex;
+    align-items: center;
+    padding-left: 16px;
+    background-color: #E3E4E0;
+    margin: 0px;
+    margin-bottom: 8px;
+    height: 48px;
+    list-style-type: none;
+    font-size: 20px;
+
+}
+
+li:hover{
+
+    background-color: #FDEF6F;
+    cursor: pointer;
+
+}
+
+li.clicado {
+
+    background-color: #B40B00;
+    color: ghostwhite;
+
+}
+
+li.clicado.correto{
+
+    background-color: #007B4E;
+    color: ghostwhite;
+
+}
+
+img {
+
+    height: 300px;
+
+}
+
+.resultado {
+
+    font-weight: bold;
+
+}
