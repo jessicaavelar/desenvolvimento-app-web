@@ -69,11 +69,13 @@ function checarResposta( event ) {
     let correto = alternativa.classList.contains( "correto" )
     let desativar = pergunta.querySelector ( "ol" )
 
-
+    //Adiciona classe "clicado" para a alternativa escolhida
     alternativa.classList.add( "clicado" )
 
+    //Adiciona classe "inativa" para todas as alternativa, impedindo que o usuário clique em outra
     desativar.classList.add ( "inativa" )
 
+    //Verifica se a resposta está certa ou errada
     if ( correto ) {
 
         resultado.textContent = "Correto"
@@ -89,10 +91,11 @@ function checarResposta( event ) {
 
     }
 
+    //Mostra a resposta e imagem
     resposta.style.display = "initial"
     imagem.style.display = "initial"
 
-
+    //Mostra quantas perguntas o usuário acertou
     document.querySelector( "output" ).textContent = respostasCorreta
     
 }
