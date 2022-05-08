@@ -1,10 +1,52 @@
 //Declara variáveis globais
-let perguntas = document.querySelectorAll ( '.perguntas' )
-let total = perguntas.length
-let respostasCorreta = 0
 
-document.querySelector( ".total" ).textContent = total
+//Variável da pergunta selecionada
+let perguntaAtual = 0;
 
+//Seleciona todos os botões
+let botoes = document.querySelectorAll( '.botao' );
+
+//Seleciona todas as perguntas
+let perguntas = document.querySelectorAll( '.perguntas' );
+
+//Variável quantas perguntas
+let total = perguntas.length - 1;
+
+//Variável de respostas corretas
+let respostasCorreta = 0;
+
+document.querySelector( ".total" ).textContent = total;
+
+//Função que remove a classe "ativa" dos botões
+function onClickNext( event ){
+
+    let perguntaAnterior = document.querySelector( '.perguntas.ativa' );
+
+    if(perguntaAnterior) {
+        perguntaAnterior.classList.remove('ativa');
+      }
+
+    //Aumenta a contagem da pergunta
+    perguntaAtual += 1;
+
+    //Seleciona a próxima pergunta a partir da variável perguntaAtual
+    let proximaPergunta = document.querySelector('.perguntas.item-' + perguntaAtual);
+    console.log('.perguntas.item-' + perguntaAtual)
+    proximaPergunta.classList.add('ativa');
+
+    //Esconde botão "iniciar"
+    let startButton = document.querySelector('.botao.iniciar');
+    startButton.style.display = 'none';
+
+  }
+
+//Ação de clique para os botões de "Próxima"
+for ( let botao of botoes ){
+    botao.addEventListener ( "click", onClickNext);
+}
+
+
+//Seleção de alternativas
 for ( let pergunta of perguntas ) {
     
     let alternativas = pergunta.querySelectorAll( "li" )
@@ -16,6 +58,7 @@ for ( let pergunta of perguntas ) {
 }
 
 
+//Função para verificar a resposta e mostrar o resultado
 function checarResposta( event ) {
 
     let alternativa = event.target
@@ -24,11 +67,12 @@ function checarResposta( event ) {
     let resposta = pergunta.querySelector( ".resposta" )
     let imagem = pergunta.querySelector ( "img" )
     let correto = alternativa.classList.contains( "correto" )
+    let desativar = pergunta.querySelector ( "ol" )
 
 
     alternativa.classList.add( "clicado" )
 
-    pergunta.classList.add ( "inativo" )
+    desativar.classList.add ( "inativa" )
 
     if ( correto ) {
 
@@ -47,6 +91,7 @@ function checarResposta( event ) {
 
     resposta.style.display = "initial"
     imagem.style.display = "initial"
+
 
     document.querySelector( "output" ).textContent = respostasCorreta
     
