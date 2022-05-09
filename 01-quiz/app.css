@@ -45,9 +45,9 @@ h2{
 
 .botao:hover{
 
+    color: #696969;
     background-color: #FDEF6F;
     cursor: pointer;
-    color: #696969;
 
 }
 
