@@ -482,8 +482,17 @@ a.seta {
 
 }
 
+
 a.seta img {
 
+    width: 100%;
+
+}
+
+
+.embrulho-footer {
+
+    position: absolute;
     width: 100%;
 
 }
@@ -502,7 +511,6 @@ footer {
 }
 
 
-
 footer > div {
 
     max-width: 700px;
@@ -511,6 +519,7 @@ footer > div {
     margin-left: 30px;
 
 }
+
 
 a > img {
 
@@ -527,6 +536,8 @@ a > img {
     gap: 30px;
     margin: 0;
     margin-left: 30px;
+    pointer-events: auto;
+
 
 }
 
