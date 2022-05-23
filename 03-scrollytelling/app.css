@@ -490,11 +490,17 @@ a.seta img {
 }
 
 
+.fim {
+
+    padding-bottom: 10rem;
+
+}
+
+
 .embrulho-footer {
 
     position: absolute;
     width: 100%;
-    margin-bottom: 0;
 
 }
 
@@ -508,6 +514,7 @@ footer {
     grid-template-rows: auto auto;
     grid-template-columns: 1fr 1fr;
     align-items: center;
+    bottom: 0;
 
 }
 
