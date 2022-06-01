@@ -1,0 +1,54 @@
+[
+  {
+    "quantil": 0,
+    "limiteInferior": 0
+  },
+  {
+    "quantil": 5,
+    "limiteInferior": 146
+  },
+  {
+    "quantil": 10,
+    "limiteInferior": 252
+  },
+  {
+    "quantil": 20,
+    "limiteInferior": 396
+  },
+  {
+    "quantil": 30,
+    "limiteInferior": 527
+  },
+  {
+    "quantil": 40,
+    "limiteInferior": 673
+  },
+  {
+    "quantil": 50,
+    "limiteInferior": 836
+  },
+  {
+    "quantil": 60,
+    "limiteInferior": 1035
+  },
+  {
+    "quantil": 70,
+    "limiteInferior": 1263
+  },
+  {
+    "quantil": 80,
+    "limiteInferior": 1682
+  },
+  {
+    "quantil": 90,
+    "limiteInferior": 2646
+  },
+  {
+    "quantil": 95,
+    "limiteInferior": 4082
+  },
+  {
+    "quantil": 99,
+    "limiteInferior": 9832
+  }
+]
