@@ -1,8 +1,30 @@
 // Selecionar a entrada do usuáio
 let entrada = document.querySelector( "input" );
 
-// Ouvir o evento de entrada - quando ousuário está digitando
+// Selecionar a caixa d
+let seletor = document.querySelector( "select" );
+
+let resultado = document.querySelector( ".resultado" );
+
+// Ouvir o evento de entrada - quando ousuário seleciona
 entrada.addEventListener( "input", validar );
+
+seletor.addEventListener( "change", funcao );
+
+function validar(e) {
+
+    console.log(e.target.value)
+
+}
+
+
+function funcao(e) {
+
+    console.log(e.target.value)
+
+    resultado.style.display = "initial"
+
+}
 
 /*
 

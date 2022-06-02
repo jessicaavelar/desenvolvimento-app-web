@@ -21,33 +21,38 @@
 
     <p>
         Quantos dias da semana?
+        <select>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+        </select>
         <!-- Colocar aqui uma caixa de seleção -->
     </p>
 
     <div class="resultado">
         <p>
-            O consumo de ...g de carne por ... dias equivale em 1 ano a:
+            O consumo de <strong data-texto="quantidade"></strong>g de carne por <strong data-texto="dias"></strong> dias equivale em 1 ano a:
         </p>
 
         <p class="anual">
-            <output>... kg</output> de carne
+            <strong data-texto="anual"></strong> kg de carne
         </p>
 
         <p class="agua">
-            Gasto de <output>... l</output> de água
+            Gasto de <strong data-texto="agua"></strong> de água
         </p>
 
         <p class="metano">
-            Emissão de <output>... kg</output> de gás metano (CH4)
+            Emissão de <strong data-texto="metano"></strong> de gás metano (CH4)
         </p>
 
         <p class="co2">
-            Emissão de <output>... kg</output> de dióxido de carbono (CO2)
+            Emissão de <strong data-texto="co2"></strong> de dióxido de carbono (CO2)
         </p>
 
     </div>
 
+    <script src="app.js"></script>
 
-    
 </body>
 </html>
