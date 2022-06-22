@@ -1,0 +1,32 @@
+[
+    {
+      "regiao": "Todo o Brasil",
+      "gatos": 19,
+      "cachorros": 46
+    },
+    {
+      "regiao": "Norte",
+      "gatos": 25,
+      "cachorros": 52
+    },
+    {
+      "regiao": "Nordeste",
+      "gatos": 24,
+      "cachorros": 38
+    },
+    {
+      "regiao": "Sudeste",
+      "gatos": 15,
+      "cachorros": 44
+    },
+    {
+      "regiao": "Sul",
+      "gatos": 21,
+      "cachorros": 57
+    },
+    {
+      "regiao": "Centro-Oeste",
+      "gatos": 17,
+      "cachorros": 56
+    }
+  ]

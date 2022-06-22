@@ -1,0 +1,35 @@
+[
+    {
+      "tipo-crime": "Ameaça de morte",
+      "ano": 2021,
+      "estado": "Amazonas",
+      "municipio": "Manaus",
+      "localização": "Aldeia Tsetsu Davi/Km 23/BR-174",
+      "data": "05/12/2021",
+      "nome": "Cacique da Aldeia Tsetsu Davi",
+      "vitimas": 1
+    },
+
+    {
+        "tipo-crime": "Assassinato",
+        "ano": 2020,
+        "estado": "Bahia",
+        "municipio": "Paulo Afonso",
+        "localização": "Aldeia Tsetsu Davi/Km 23/BR-174",
+        "data": "05/12/2021",
+        "nome": "Cacique da Aldeia Tsetsu Davi",
+        "vitimas": 3
+    },
+
+    {
+        "tipo-crime": "Tentativa de assassinato",
+        "ano": 2019,
+        "estado": "Amazonas",
+        "municipio": "Manaus",
+        "localização": "Aldeia Tsetsu Davi/Km 23/BR-174",
+        "data": "05/12/2021",
+        "nome": "Cacique da Aldeia Tsetsu Davi",
+        "vitimas": 10
+    }
+
+]

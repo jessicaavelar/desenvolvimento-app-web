@@ -1,0 +1,79 @@
+<label>
+
+    <input type="checkbox" name="streaming" value="netflix"> Netflix
+
+</label>
+
+<label>
+
+    <input type="checkbox" name="streaming" value="disney"> Disney+
+
+</label>
+
+<label>
+
+    <input type="checkbox" name="streaming" value="amazon"> Amazon Prime
+
+</label>
+
+<ul></ul>
+
+
+<script>
+
+    let filmes = [
+        {
+            nome: "Poderoso Chefão",
+            streaming: "netflix"
+    },
+    {
+            nome: "Soul",
+            streaming: "disney"
+    },
+    {
+            nome: "007",
+            streaming: "amazon"
+    },
+    {
+            nome: "Titanic",
+            streaming: "netflix"
+    }
+    ]
+
+    let streamings = document.querySelectorAll( "input[name='streaming']" );
+
+    let lista = document.querySelector ( "ul" );
+
+
+    for ( let streaming of streamings ) {
+
+        streaming.addEventListener( "input", filtrar );
+    }
+
+   function filtrar() {
+       
+        lista.textContent = ""
+
+        for ( let streaming of streamings ) {
+
+            if ( streaming.checked ) {
+
+                for ( let filme of filmes ) {
+
+                    if (streaming.value == filme.streaming ) {
+
+                        let item = document.createElement( "li" );
+                        item.textContent = filme.nome;
+                        lista.append( item );
+
+                    }
+                    
+                }
+
+            }
+
+        }
+
+    }
+
+</script>

@@ -1,0 +1,52 @@
+Selecione um estado:
+<select onchange="validar()">
+
+    <option></option>
+    <option value="sp">SP</option>
+    <option value="rj">RJ</option>
+
+</select>
+
+<p id="resultado"></p>
+
+<script>
+
+    function validar() {
+
+        limpar()
+
+        let estado = event.target.value;
+
+        if ( estado ) {
+
+            let info = estado + ".json"
+
+            fetch( info )
+                .then(
+
+                    // Arrow functions   
+                    resposta => resposta.json()
+
+                )
+
+                .then( dados => mostrar ( dados ) )
+
+        }
+
+    }
+
+
+    function limpar() {
+
+        resultado.textContent = ""
+
+    }
+
+    
+    function mostrar ( dados ) {
+
+        resultado.textContent = dados.nome + " tem " + dados.pop
+
+    }
+
+</script>

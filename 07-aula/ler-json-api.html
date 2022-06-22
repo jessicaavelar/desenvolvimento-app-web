@@ -1,0 +1,21 @@
+<script>
+
+    let url = "https://nominatim.openstreetmap.org/search?q=Brasil&format=json&limit=1"
+
+    fetch( url )
+        .then(
+
+            // Arrow functions   
+            resposta => resposta.json()
+
+        )
+
+        .then( dados => mostrar ( dados ) )
+
+    function mostrar ( dados ) {
+
+        console.log( dados )
+
+    }
+
+</script>
