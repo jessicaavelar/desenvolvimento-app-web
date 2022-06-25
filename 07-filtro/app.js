@@ -1,5 +1,9 @@
 let arquivo
 
+let vitimas
+
+let total
+
 // Seleciona a tabela
 let tabela = document.querySelector( "table" )
 
@@ -11,6 +15,9 @@ let seletorAno = document.querySelector( "select[name='ano']" );
 
 // Seleciona o estado
 let seletorEstado = document.querySelector( "select[name='estado']" );
+
+// Selecionar a div soma
+let soma = document.querySelector( ".soma" );
 
 // Ouve os eventos de mudança
 seletorCategoria.addEventListener( "change", mostrar );
@@ -121,7 +128,9 @@ function mostrar(){
     let filtrados = arquivo.filter( checar );
 
 
-    // Utilizar o filtrados para fazer a soma
+        // Calcula a quantidade de vítimas
+        calcularQuantidade( filtrados )
+
 
         for ( let filtrado of filtrados ) {
 
@@ -159,8 +168,14 @@ function mostrar(){
         celulaNome.textContent = filtrado[ "nome" ];
         celulaVitimas.textContent = filtrado[ "vitimas" ];
         celulaCategoria.textContent = filtrado[ "categoria" ];
-        
+              
     }
+
+    
+    // Exibe o total de vítimas no período selecionado
+    document.querySelector( ".total" ).innerText = total
+    soma.style.display = "initial";
+
 }
 
 
@@ -198,7 +213,9 @@ function checar( dado ){
     }
 
     else {
+
         filtroAno = dado[ "ano" ] == ano
+
     }
 
 
@@ -213,6 +230,7 @@ function checar( dado ){
         filtroEstado = dado[ "estado" ] == estado
 
     }
+
 
     // Checa o que foi selecionado pelo usuário
     if ( filtroCategoria && filtroAno && filtroEstado ) {
@@ -229,5 +247,21 @@ function limpar(){
 
     // Limpa os dados e insere o cabeçalho novamente
     tabela.innerHTML = "<tr><th>Tipo de crime</th><th>Ano</th><th>Estado</th><th>Município</th><th>Localização</th><th>Data</th><th>Nome</th><th>Vítimas</th><th>Categoria</th></tr>"
+
+}
+
+
+// Função para calcular a quantidade de vítimas
+function calcularQuantidade( filtrados ) {
+
+    total = 0
+
+    for (filtrado of filtrados ) {
+
+        vitimas = parseInt( filtrado[ "vitimas" ] );
+        
+        total = total + vitimas
+
+    }
 
 }
