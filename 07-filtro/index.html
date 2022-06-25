@@ -4,59 +4,69 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Crimes contra indígenas</title>
+    <link rel="stylesheet" href="app.css">
 </head>
 <body>
 
-    <h1>Ameaças a indígenas</h1>
+    <h1>As ameaças em território indígena</h1>
 
     <p>
-        Lorem ipsum dolor sit amet. Est iste consectetur ex galisum dignissimos in delectus mollitia ut blanditiis excepturi in nobis nihil est rerum nihil? Et culpa laboriosam et velit neque eos internos repellat ut voluptatem consequatur est accusamus dolorem nam sint eveniet.<br>
-    
-        Lorem ipsum dolor sit amet. Est iste consectetur ex galisum dignissimos in delectus mollitia ut blanditiis excepturi in nobis nihil est rerum nihil? Et culpa laboriosam et velit neque eos internos repellat ut voluptatem consequatur est accusamus dolorem nam sint eveniet.
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.<br><br>
 
     </p>
 
-    Selecione uma categoria
-    <select name="categoria">
 
-        <option>Todos</option>
-        <option>Assassinato</option>
-        <option>Ameaça de morte</option>
-        <option>Tentativa de assassinato</option>
+    <p>
+        
+        Selecione uma categoria:
 
-    </select>
+        <select name="tipo-crime">
 
-    Selecione o ano
-    <select name="ano">
+            <option value="todos">Todos</option>
 
-        <option value="todos">Todos</option>
-        <option value="2017">2017</option>
-        <option value="2018">2018</option>
-        <option value="2019">2019</option>
-        <option value="2020">2020</option>
-        <option value="2021">2021</option>
+        </select>
 
-    </select>
+        Selecione o ano:
 
-    Selecione o estado
-    <select name="estado">
+        <select name="ano">
 
-        <option value="todos">Todos</option>
-        <option value="amazonas">Amazonas</option>
-        <option value="bahia">Bahia</option>
+            <option value="todos">Todos</option>
 
-    </select>
+        </select>
+
+
+        Selecione o estado:
+
+        <select name="estado">
+
+            <option value="todos">Todos</option>
+
+        </select>
+
+    </p>
 
     <table>
-        <!--
+
         <tr>
+
             <th>Tipo de crime</th>
             <th>Ano</th>
             <th>Estado</th>
+            <th>Município</th>
+            <th>Localização</th>
+            <th>Data</th>
+            <th>Nome</th>
+            <th>Vítimas</th>
+            <th>Categoria</th>
+
         </tr>
--->
+
     </table>
+
+    <p>
+        Em <span class="ano"></span> <span class="tipo-crime"></span> indígenas em <span class="estado"></span>.
+    </p>
 
     <script src="app.js"></script>
     

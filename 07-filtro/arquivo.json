@@ -7,7 +7,8 @@
       "localização": "Aldeia Tsetsu Davi/Km 23/BR-174",
       "data": "05/12/2021",
       "nome": "Cacique da Aldeia Tsetsu Davi",
-      "vitimas": 1
+      "vitimas": 1,
+      "categoria": "Indígena"
     },
 
     {
@@ -18,7 +19,8 @@
         "localização": "Aldeia Tsetsu Davi/Km 23/BR-174",
         "data": "05/12/2021",
         "nome": "Cacique da Aldeia Tsetsu Davi",
-        "vitimas": 3
+        "vitimas": 3,
+        "categoria": "Funcionário público"
     },
 
     {
@@ -29,7 +31,8 @@
         "localização": "Aldeia Tsetsu Davi/Km 23/BR-174",
         "data": "05/12/2021",
         "nome": "Cacique da Aldeia Tsetsu Davi",
-        "vitimas": 10
+        "vitimas": 10,
+        "categoria": "Agente de pastoral"
     }
 
 ]
