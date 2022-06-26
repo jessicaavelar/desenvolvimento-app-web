@@ -143,6 +143,7 @@ function mostrar(){
         let celulaLocal = document.createElement( "td" );
         let celulaData = document.createElement( "td" );
         let celulaNome = document.createElement( "td" );
+        let celulaIdade = document.createElement( "td" );
         let celulaVitimas = document.createElement( "td" );
         let celulaCategoria = document.createElement( "td" );
 
@@ -155,6 +156,7 @@ function mostrar(){
         linha.append( celulaLocal);
         linha.append( celulaData );
         linha.append( celulaNome );
+        linha.append( celulaIdade );
         linha.append( celulaVitimas );
         linha.append( celulaCategoria );
         
@@ -162,10 +164,11 @@ function mostrar(){
         celulaTcrime.textContent = filtrado[ "tipo-crime" ];
         celulaAno.textContent = filtrado[ "ano" ];
         celulaEstado.textContent = filtrado[ "estado" ];
-        celulaMunicipio.textContent = filtrado[ "municipio" ];
+        celulaMunicipio.textContent = filtrado[ "município" ];
         celulaLocal.textContent = filtrado[ "localização" ];
         celulaData.textContent = filtrado[ "data" ];
         celulaNome.textContent = filtrado[ "nome" ];
+        celulaIdade.textContent = filtrado[ "idade" ];
         celulaVitimas.textContent = filtrado[ "vitimas" ];
         celulaCategoria.textContent = filtrado[ "categoria" ];
               
@@ -246,7 +249,7 @@ function checar( dado ){
 function limpar(){
 
     // Limpa os dados e insere o cabeçalho novamente
-    tabela.innerHTML = "<tr><th>Tipo de crime</th><th>Ano</th><th>Estado</th><th>Município</th><th>Localização</th><th>Data</th><th>Nome</th><th>Vítimas</th><th>Categoria</th></tr>"
+    tabela.innerHTML = "<tr><th>Tipo de crime</th><th>Ano</th><th>Estado</th><th>Município</th><th>Localização</th><th>Data</th><th>Nome</th><th>Idade</th><th>Vítimas</th><th>Categoria</th></tr>"
 
 }
 
