@@ -140,9 +140,26 @@ svg {
 
 svg path {
 
-    fill: #696969;
     stroke: ghostwhite;
     stroke-width: 40;
     cursor: pointer;
+
+}
+
+
+.balao {
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: black;
+    color: white;
+    border-radius: 8px;
+    font-size: 14px;
+    padding: 8px;
+    transform: translateX( -50% ) translateY( -100% );
+    pointer-events: none;
+    user-select: none;
+    display: none;
 
 }
