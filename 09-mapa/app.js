@@ -2,13 +2,14 @@ let arquivo;
 
 let vitimas;
 
-let total;
-
 let totaisParaMapa;
+
+let total
 
 let mapaMalha;
 
 let mapaDados;
+
 
 // Seleciona a tabela
 let tabela = document.querySelector( "table" )
@@ -19,23 +20,17 @@ let seletorCategoria = document.querySelector( "select[name='tipo-crime']" );
 // Seleciona o ano
 let seletorAno = document.querySelector( "select[name='ano']" );
 
-// Seleciona o estado
-let seletorEstado = document.querySelector( "select[name='estado']" );
-
 // Seleciona a div soma
 let soma = document.querySelector( ".soma" );
 
-
-// Seleciona balão
-let balao = document.querySelector( ".balao" )
+// Seleciona o balão
+let balao = document.querySelector( ".balao" );
 
 
 // Ouve os eventos de mudança
 seletorCategoria.addEventListener( "change", mostrar );
 
 seletorAno.addEventListener( "change", mostrar );
-
-seletorEstado.addEventListener( "change", mostrar );
 
 
 // Lê o arquivo json
@@ -58,15 +53,11 @@ function preencheSeletores() {
 
     let listaAno = arquivo.map( a => a[ "ano" ]);
 
-    let listaEstado = arquivo.map( e => e[ "estado" ]);
-
 
     // Seleciona os valores únicos nas listas
     listaCategoria = valoresUnicos( listaCategoria );
 
     listaAno = valoresUnicos( listaAno );
-
-    listaEstado = valoresUnicos( listaEstado );
 
 
     // Adiciona os tipos de crime no seletor
@@ -92,7 +83,7 @@ function preencheSeletores() {
         // Cria o elemento "option"
         let novaOpcao = document.createElement( "option" );
 
-        // Insere o valor "Ano"
+        // Insere o valor "ano"
         novaOpcao.textContent = ano;
 
         // Adiciona o ano também ao "value"
@@ -100,22 +91,6 @@ function preencheSeletores() {
 
         // Adiciona o filho ao elemento
         seletorAno.appendChild( novaOpcao );
-    }
-
-    // Adiciona os estados no seletor
-    for ( estado of listaEstado ) {
-
-        // Cria o elemento "option"
-        let novaOpcao = document.createElement( "option" );
-
-        // Insere o valor "Estado"
-        novaOpcao.textContent = estado;
-
-        // Adiciona o estado também ao "value"
-        novaOpcao.value = estado;
-
-        // Adiciona o filho ao elemento
-        seletorEstado.appendChild( novaOpcao );
     }
 
 }
@@ -129,60 +104,61 @@ function valoresUnicos( lista ){
 }
 
 
-//Função para mostrar os dados no mapa
+// Função para mostrar os dados do mapa
 function mostrarMapa() {
 
     // Utiliza o método filter do JS e armazena na variável os que passaram pela checagem do mapa
-    let filtradosParaMapa = arquivo.filter( checarParaMapa );
-
-    // Calcula a quantidade de vítimas por estado
-    totaisParaMapa = calcularQuantidadeParaMapa( filtradosParaMapa );
+    let filtradosParaMapa = arquivo.filter( checar );
 
 
-    // Define os estados com menos e mais vítimas
-    let min = Math.min( ...totaisParaMapa.map( d => d.total ) )
-    
-    let max = Math.max( ...totaisParaMapa.map( d => d.total ) )
+    // Calcula a quantidade de vítimas por estado e por tipo de crime
+    totaisParaMapa = calcularQuantidade( filtradosParaMapa );
 
 
-    // Usa d3 para definir a escala de cor baseado no mínimo e máximo de vítimas por estado
+    //Define os estados com menor e mais vítimas
+    let min = Math.min( ...totaisParaMapa.map( d => d.total ) );
+    let max = Math.max( ...totaisParaMapa.map( d => d.total ) );
+
+
+    // Usa a d3 para definir a escala de cor baseado nos valores mínimo e máximo de vítimas por estado
     var escalaDeCor = d3.scaleLinear()
         .domain([ min, max ])
         .range([ "yellow", "red" ])
-
+        //.range([ "black", "#B40B00"])
 
 
     // Seleciona os estados
-    let elementoEstados = document.querySelectorAll( "#mapa svg path" );
+    let elementoEstados = document.querySelectorAll ( "#mapa svg path" );
 
     // Seleciona o id de cada elemento
-    elementoEstados.forEach(( elemento ) => {
+    elementoEstados.forEach( ( elemento ) => {
 
         // Obtem o id por UF
-        let id = parseInt( elemento.id )
+        let id = parseInt( elemento.id );
 
-        let cor = undefined
+        let cor = undefined;
+
 
         // Encontra o total de vítimas nessa UF
         for ( let uf of totaisParaMapa ) {
 
-            if ( uf.id == id ){
+            if (uf.id == id) {
 
-                // Aplica cor proporcional
-                cor = escalaDeCor( uf.total )
+                // Aplica a cor proporcional
+                cor = escalaDeCor( uf.total );
 
             }
 
+         }
 
-        }
 
-
-        // Aplica cor proporcional
-        elemento.setAttribute( "fill", cor );
+         //Aplica cor proporcional
+         elemento.setAttribute( "fill", cor );
 
     } )
 
 }
+
 
 
 // Função para mostrar os dados
@@ -193,17 +169,11 @@ function mostrar(){
 
 
     // Utiliza o método filter do JS e armazena na variável os que passaram pela checagem
-    let filtrados = arquivo.filter( checar );
+    let filtradosParaMapa = arquivo.filter( checar );
 
+    mostrarMapa()
 
-    // Calcula a quantidade de vítimas
-    calcularQuantidade( filtrados );
-
-
-    mostrarMapa() 
-
-
-    for ( let filtrado of filtrados ) {
+        for ( let filtrado of filtradosParaMapa ) {
 
         // Cria os elementos da tabela
         let linha = document.createElement( "tr" );
@@ -242,82 +212,14 @@ function mostrar(){
         celulaIdade.textContent = filtrado[ "idade" ];
         celulaVitimas.textContent = filtrado[ "vitimas" ];
         celulaCategoria.textContent = filtrado[ "categoria" ];
-            
+              
     }
-
-    
-    // Exibe o total de vítimas no período selecionado
-    document.querySelector( ".total" ).innerText = total
-    soma.style.display = "initial";
 
 }
 
 
 // Função para checar a filtragem dos valores
 function checar( dado ){
-
-    // Cria as variáveis com as seleções do usuário
-    let categoria = seletorCategoria.value;
-
-    let ano = seletorAno.value;
-
-    let estado = seletorEstado.value;
-
-    // Cria a lista de filtros
-    let filtroCategoria , filtroAno, filtroEstado;
-
-
-    // Verifica se atente às condições
-    if ( categoria == "todos" ) {
-
-        filtroCategoria = true
-    }
-
-    else {
-
-        filtroCategoria = dado[ "tipo-crime" ] == categoria
-
-    }
-
-
-    if ( ano == "todos" ) {
-
-        filtroAno = true
-
-    }
-
-    else {
-
-        filtroAno = dado[ "ano" ] == ano
-
-    }
-
-
-    if ( estado == "todos" ) {
-
-        filtroEstado = true
-
-    }
-
-    else {
-
-        filtroEstado = dado[ "estado" ] == estado
-
-    }
-
-
-    // Checa o que foi selecionado pelo usuário
-    if ( filtroCategoria && filtroAno && filtroEstado ) {
-
-        return true;
-
-    }
-
-}
-
-
-// Função para checar a filtragem dos valores para o mapa
-function checarParaMapa( dado ){
 
     // Cria as variáveis com as seleções do usuário
     let categoria = seletorCategoria.value;
@@ -363,6 +265,7 @@ function checarParaMapa( dado ){
 
 }
 
+
 // Função para limpar os dados da tabela e criar o cabeçalho
 function limpar(){
 
@@ -375,126 +278,116 @@ function limpar(){
 // Função para calcular a quantidade de vítimas
 function calcularQuantidade( filtradosParaMapa ) {
 
-    let lista2 = []
+    let lista = [];
+
 
     // Verifica se mapaDados já foi carregado
     if ( !mapaDados )
-        return lista2
+        return lista;
 
 
-    for ( let uf of mapaDados ) {
 
-        totalAmeaca = 0
-
-        totalTentativa = 0
-
-        totalAssassinato = 0
-
+    // Passa por cada uf e faz o somatório  
+    for (let uf of mapaDados ) {
         
+        total = 0;
+
+        let totalAmeaca = 0;
+
+        let  totalTentativa = 0;
+
+        let totalAssassinato = 0;
+
+
         for ( filtrado of filtradosParaMapa ) {
 
-            if ( filtrado[ "tipo-crime" ] === "Ameaça de morte"){
+            // Soma total de vítimas
 
+            if ( filtrado.id == uf.id  ) {
 
                 vitimas = parseInt( filtrado[ "vitimas" ] );
                 
-                totalAmeaca = totalAmeaca + vitimas
+                total = total + vitimas;
+
+
+                // Soma de Ameaças de Morte
+                if ( filtrado[ "tipo-crime" ] === "Ameaça de morte") {
+
+                    vitimas = parseInt( filtrado[ "vitimas" ] );
+                    
+                    totalAmeaca = totalAmeaca + vitimas;
+
+                }
+
+
+                // Soma de Tentatativa de Assassinato
+                if ( filtrado[ "tipo-crime" ] === "Tentativa de assassinato"){
+
+
+                    vitimas = parseInt( filtrado[ "vitimas" ] );
+                    
+                    totalTentativa = totalTentativa + vitimas
+
+                }
+
+
+                // Soma de Assassinatos
+                if ( filtrado[ "tipo-crime" ] === "Assassinato"){
+
+
+                    vitimas = parseInt( filtrado[ "vitimas" ] );
+                    
+                    totalAssassinato = totalAssassinato + vitimas
+
+                }
 
             }
 
         }
 
-        for ( filtrado of filtradosParaMapa ) {
-
-
-            if ( filtrado[ "tipo-crime" ] === "Tentativa de assassinato"){
-
-
-                vitimas = parseInt( filtrado[ "vitimas" ] );
-                
-                totalTentativa = totalTentativa + vitimas
-
-            }
-
-        }
-
-
-        for ( filtrado of filtradosParaMapa ) {
-
-
-            if ( filtrado[ "tipo-crime" ] === "Assassinato"){
-
-
-                vitimas = parseInt( filtrado[ "vitimas" ] );
-                
-                totalAssassinato = totalAssassinato + vitimas
-
-            }
-
-        }
 
         let item = {
 
             id: uf.id,
+            total: total,
             totalAmeaca: totalAmeaca,
             totalTentativa: totalTentativa,
-            totalAssassinato: totalAssassinato
+            totalAssassinato
 
         }
-
-
-        lista2.push( item )
-
-    }
-
-    console.log(lista2)
-    return lista2
-
-
-}
-
-
-// Função para calcular a quantidade de vítimas por estado
-function calcularQuantidadeParaMapa( filtradosParaMapa ) {
-
-    let lista = []
-
-    // Verifica se mapaDados já foi carregado
-    if ( !mapaDados )
-        return lista
-
-
-    for ( let uf of mapaDados ) {
-
-        let total = 0;
-
-
-        for ( filtrado of filtradosParaMapa ) {
-
-            if ( filtrado.id == uf.id ) {
-
-                vitimas = parseInt( filtrado[ "vitimas" ] );
-                
-                total = total + vitimas
-
-            }
-        
-        }
-
-
-        let item = {
-
-            id: uf.id,
-            total: total
-
-        }
-
 
         lista.push( item )
+  
+    
+    }
+
+
+    let ameaca = 0;
+
+    let tentativa = 0;
+
+    let assassinato = 0;
+
+    for ( item of lista ) {
+
+        ameaca = ameaca + item.totalAmeaca;
+
+        tentativa = tentativa + item.totalTentativa;
+
+        assassinato = assassinato + item.totalAssassinato
 
     }
 
-    return lista
+    document.querySelector( ".total-ameaca" ).innerText = ameaca;
+
+    document.querySelector( ".total-tentativa" ).innerText = tentativa;
+
+    document.querySelector( ".total-assassinato" ).innerText = assassinato;
+
+
+    return lista 
+
+
 }
 
 
@@ -507,28 +400,31 @@ async function lerDadosMapa() {
     // Dados do mapa do Brasil por estado na API do IBGE
     let dadosUrl = "https://servicodados.ibge.gov.br/api/v1/localidades/estados";
 
-
     // Carrega o arquivo mapa
     let mapaSvg = await fetch( mapaUrl );
+
 
     // Converte o arquivo carregado em string
     mapaMalha = await mapaSvg.text();
 
+
     // Seleciona o id do mapa
     let mapaConteudo = document.querySelector( "#mapa" );
 
+
     // Insere o mapa no HTML
     mapaConteudo.innerHTML = mapaMalha;
+
 
     // Seleciona os estados
     let elementoEstados = document.querySelectorAll( "#mapa svg path" );
 
 
-    // Adiciona os eventos de mouse over e out
+    //Adiciona os eventos de mouse over e out
     elementoEstados.forEach(( elemento ) => {
-    
+
         elemento.addEventListener( "mouseover", marcaEstado );
-        elemento.addEventListener( "mouseout", desmarcaEstado );
+        elemento.addEventListener( "mouseout", desmarcaEstado ); 
 
     } )
 
@@ -540,9 +436,8 @@ async function lerDadosMapa() {
     mapaDados = await dadosJson.json();
 
 
-    // Função para mostrar os dados no mapa
+    // Mostra os dados do mapa
     mostrarMapa()
-
 
 }
 
@@ -550,50 +445,51 @@ async function lerDadosMapa() {
 function marcaEstado( event ) {
 
     let elemento = event.target;
-    
-
 
     // Seleciona o id do estado
     let id = parseInt( elemento.id );
 
     let uf = undefined;
 
-    let total = undefined;
+    let totalAmeaca = 0;
 
+    let totalTentativa = 0;
 
-    // Obtem total de vítimas e mostrar objeto que contém este id
-    for ( let item of totaisParaMapa ) {
-        
-        if ( id === item.id ) {
+    let totalAssassinato = 0;
 
-            total = item.total;
+    // Obtém total de vítimas e mostra o objeto que contém este id
+    for ( let item of totaisParaMapa ){
+
+        if (id === item.id ) {
+            
+            totalAmeaca = item.totalAmeaca;
+            totalTentativa = item.totalTentativa;
+            totalAssassinato = item.totalAssassinato;
 
         }
     }
 
-    // Obter nome do Estado e mostrar objeto que contém este id
+
+    // Obtem nome do estado e mostra o objeto que contém este id
     for ( let dado of mapaDados ) {
 
-        if (  id === dado.id ) {
+        if (id === dado.id ) {
 
             uf = dado.nome;
 
         }
     }
 
-    if ( uf && total ) {
 
-    
-        //Mostra em um pop-up o nome do estado e quantidade de vítimas
-        balao.style.display = "block"
+    // Mostra em um pop-up o nome do estado e a quantidade de vítimas
+    balao.style.display = "block";
 
-        balao.textContent = `${ uf }: ${ total } vítimas`
+    balao.textContent = `${ uf } \nAmeaça de morte: ${ totalAmeaca } \nTentativa de assassinato: ${ totalTentativa } \nAssassinato ${ totalAssassinato }`;
 
-        // Move o balão de acordo com o mouse
-        balao.style.top = event.clientY + "px"
-        balao.style.left = event.clientX + "px"
 
-    }
+    // Move o balão de acordo com o mouse
+    balao.style.top = event.clientY + "px";
+    balao.style.left = event.clientX + "px";
 
 }
 

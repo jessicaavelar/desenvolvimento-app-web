@@ -106,13 +106,12 @@ td {
 }
 
 
-.soma {
+/*.soma {
     
-    display: none;
     margin-left: 2rem;
     margin-top: 1.2rem;
 
-}
+}*/
 
 
 #mapa {
@@ -121,7 +120,6 @@ td {
     width: 90%;
     height: calc(90% - 100px);
     background-color: ghostwhite;
-    overflow: scroll;
     padding: 30px;
     display: grid;
     justify-content: center;
@@ -161,5 +159,12 @@ svg path {
     pointer-events: none;
     user-select: none;
     display: none;
+    white-space: pre;
 
+}
+
+
+.total-ameaca {
+
+    display: initial;
 }
