@@ -70,7 +70,8 @@ table {
     border: 2px solid #B40B00;
     border-left: 0;
     border-spacing: 0;
-    margin: 1.5rem 0;
+    margin: 1rem 0;
+
 }
 
 
@@ -102,25 +103,23 @@ td {
 
     display: grid;
     grid-template-columns: 2fr 1fr;
+    margin-bottom: 0;
 
 }
 
 
-/*.soma {
+.soma {
     
-    margin-left: 2rem;
-    margin-top: 1.2rem;
+    margin: auto;
 
-}*/
+}
 
 
 #mapa {
 
-    margin: 0 auto;
-    width: 90%;
+    margin: auto;
+    width: 80%;
     height: calc(90% - 100px);
-    background-color: ghostwhite;
-    padding: 30px;
     display: grid;
     justify-content: center;
     align-items: center;
@@ -138,8 +137,8 @@ svg {
 
 svg path {
 
-    stroke: ghostwhite;
-    stroke-width: 40;
+    stroke: #110909;
+    stroke-width: 100px;
     cursor: pointer;
 
 }
@@ -150,21 +149,17 @@ svg path {
     position: fixed;
     top: 0;
     left: 0;
-    background: black;
-    color: white;
+    background: ghostwhite;
+    border: solid 2px #B40B00;
+    color: #696969;
     border-radius: 8px;
     font-size: 14px;
     padding: 8px;
     transform: translateX( -50% ) translateY( -100% );
     pointer-events: none;
-    user-select: none;
-    display: none;
     white-space: pre;
+    line-height: 1.2em;
+    letter-spacing: 0.09em;
 
-}
 
-
-.total-ameaca {
-
-    display: initial;
 }
