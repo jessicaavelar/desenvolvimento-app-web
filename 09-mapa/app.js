@@ -1,36 +1,33 @@
 let arquivo;
 
-let vitimas;
+let mapaDados;
+
+let mapaMalha;
 
 let totaisParaMapa;
 
 let total
 
-let mapaMalha;
+let vitimas;
 
-let mapaDados;
-
-
-// Seleciona a tabela
-let tabela = document.querySelector( "table" )
-
-// Seleciona o tipo de crime
-let seletorCategoria = document.querySelector( "select[name='tipo-crime']" );
-
-// Seleciona o ano
-let seletorAno = document.querySelector( "select[name='ano']" );
-
-// Seleciona a div soma
-let soma = document.querySelector( ".soma" );
 
 // Seleciona o balão
 let balao = document.querySelector( ".balao" );
 
+// Seleciona o ano
+let seletorAno = document.querySelector( "select[name='ano']" );
+
+// Seleciona o tipo de crime
+let seletorCategoria = document.querySelector( "select[name='tipo-crime']" );
+
+// Seleciona a tabela
+let tabela = document.querySelector( "table" )
+
 
 // Ouve os eventos de mudança
-seletorCategoria.addEventListener( "change", mostrar );
-
 seletorAno.addEventListener( "change", mostrar );
+
+seletorCategoria.addEventListener( "change", mostrar );
 
 
 // Lê o arquivo json
@@ -48,17 +45,33 @@ fetch ( "arquivo.json" )
 // Função para preencher os seletores do usuário com os valores da planilha
 function preencheSeletores() {
 
-    // Cria as listas de categoria
-    let listaCategoria = arquivo.map( c => c[ "tipo-crime" ]);
-
+    // Cria as listas com os anos e categorias
     let listaAno = arquivo.map( a => a[ "ano" ]);
+
+    let listaCategoria = arquivo.map( c => c[ "tipo-crime" ]);
 
 
     // Seleciona os valores únicos nas listas
-    listaCategoria = valoresUnicos( listaCategoria );
-
     listaAno = valoresUnicos( listaAno );
 
+    listaCategoria = valoresUnicos( listaCategoria );
+
+
+    // Adiciona os anos no seletor
+    for ( ano of listaAno ) {
+
+        // Cria o elemento "option"
+        let novaOpcao = document.createElement( "option" );
+
+        // Insere o valor "ano"
+        novaOpcao.textContent = ano;
+
+        // Adiciona o ano também ao "value"
+        novaOpcao.value = ano;
+
+        // Adiciona o filho ao elemento
+        seletorAno.appendChild( novaOpcao );
+    }
 
     // Adiciona os tipos de crime no seletor
     for ( categoria of listaCategoria ) {
@@ -75,22 +88,6 @@ function preencheSeletores() {
         // Adiciona o filho ao elemento
         seletorCategoria.appendChild( novaOpcao );
 
-    }
-
-    // Adiciona os anos no seletor
-    for ( ano of listaAno ) {
-
-        // Cria o elemento "option"
-        let novaOpcao = document.createElement( "option" );
-
-        // Insere o valor "ano"
-        novaOpcao.textContent = ano;
-
-        // Adiciona o ano também ao "value"
-        novaOpcao.value = ano;
-
-        // Adiciona o filho ao elemento
-        seletorAno.appendChild( novaOpcao );
     }
 
 }
@@ -115,16 +112,15 @@ function mostrarMapa() {
     totaisParaMapa = calcularQuantidade( filtradosParaMapa );
 
 
-    //Define os estados com menor e mais vítimas
+    //Define os estados com menos e com mais vítimas
     let min = Math.min( ...totaisParaMapa.map( d => d.total ) );
     let max = Math.max( ...totaisParaMapa.map( d => d.total ) );
 
-
+        
     // Usa a d3 para definir a escala de cor baseado nos valores mínimo e máximo de vítimas por estado
     var escalaDeCor = d3.scaleLinear()
         .domain([ min, max ])
-        .range([ "yellow", "red" ])
-        //.range([ "black", "#B40B00"])
+        .range([ "#FDEF6F", "#B40B00" ])
 
 
     // Seleciona os estados
@@ -144,8 +140,19 @@ function mostrarMapa() {
 
             if (uf.id == id) {
 
-                // Aplica a cor proporcional
-                cor = escalaDeCor( uf.total );
+                if ( uf.total != 0 ) {
+
+                    // Aplica a cor proporcional
+                    cor = escalaDeCor( uf.total );
+
+                }
+
+                else {
+
+                    // Aplica cinza claro para os estados que não têm registro de crimes
+                    cor = "#E3E4E090"
+
+                }
 
             }
 
@@ -160,7 +167,6 @@ function mostrarMapa() {
 }
 
 
-
 // Função para mostrar os dados
 function mostrar(){
 
@@ -171,7 +177,9 @@ function mostrar(){
     // Utiliza o método filter do JS e armazena na variável os que passaram pela checagem
     let filtradosParaMapa = arquivo.filter( checar );
 
+
     mostrarMapa()
+
 
         for ( let filtrado of filtradosParaMapa ) {
 
@@ -222,9 +230,9 @@ function mostrar(){
 function checar( dado ){
 
     // Cria as variáveis com as seleções do usuário
-    let categoria = seletorCategoria.value;
-
     let ano = seletorAno.value;
+
+    let categoria = seletorCategoria.value;
 
     // Cria a lista de filtros
     let filtroCategoria , filtroAno;
@@ -278,13 +286,13 @@ function limpar(){
 // Função para calcular a quantidade de vítimas
 function calcularQuantidade( filtradosParaMapa ) {
 
+
     let lista = [];
 
 
     // Verifica se mapaDados já foi carregado
     if ( !mapaDados )
         return lista;
-
 
 
     // Passa por cada uf e faz o somatório  
@@ -302,7 +310,6 @@ function calcularQuantidade( filtradosParaMapa ) {
         for ( filtrado of filtradosParaMapa ) {
 
             // Soma total de vítimas
-
             if ( filtrado.id == uf.id  ) {
 
                 vitimas = parseInt( filtrado[ "vitimas" ] );
@@ -310,7 +317,7 @@ function calcularQuantidade( filtradosParaMapa ) {
                 total = total + vitimas;
 
 
-                // Soma de Ameaças de Morte
+                // Soma Ameaças de Morte
                 if ( filtrado[ "tipo-crime" ] === "Ameaça de morte") {
 
                     vitimas = parseInt( filtrado[ "vitimas" ] );
@@ -320,9 +327,8 @@ function calcularQuantidade( filtradosParaMapa ) {
                 }
 
 
-                // Soma de Tentatativa de Assassinato
+                // Soma Tentatativa de Assassinato
                 if ( filtrado[ "tipo-crime" ] === "Tentativa de assassinato"){
-
 
                     vitimas = parseInt( filtrado[ "vitimas" ] );
                     
@@ -331,9 +337,8 @@ function calcularQuantidade( filtradosParaMapa ) {
                 }
 
 
-                // Soma de Assassinatos
+                // Soma Assassinatos
                 if ( filtrado[ "tipo-crime" ] === "Assassinato"){
-
 
                     vitimas = parseInt( filtrado[ "vitimas" ] );
                     
@@ -357,17 +362,18 @@ function calcularQuantidade( filtradosParaMapa ) {
         }
 
         lista.push( item )
-  
     
     }
 
-
+    // Variáveis para o somatório total por categoria de crima
     let ameaca = 0;
 
     let tentativa = 0;
 
     let assassinato = 0;
 
+
+    // Soma cada um dos itens da lista
     for ( item of lista ) {
 
         ameaca = ameaca + item.totalAmeaca;
@@ -378,6 +384,8 @@ function calcularQuantidade( filtradosParaMapa ) {
 
     }
 
+
+    // Insere os valores totais no texto
     document.querySelector( ".total-ameaca" ).innerText = ameaca;
 
     document.querySelector( ".total-tentativa" ).innerText = tentativa;
@@ -386,7 +394,6 @@ function calcularQuantidade( filtradosParaMapa ) {
 
 
     return lista 
-
 
 }
 
@@ -442,6 +449,7 @@ async function lerDadosMapa() {
 }
 
 
+// Função de mouse over e que destaca os dados por estado
 function marcaEstado( event ) {
 
     let elemento = event.target;
@@ -456,6 +464,7 @@ function marcaEstado( event ) {
     let totalTentativa = 0;
 
     let totalAssassinato = 0;
+    
 
     // Obtém total de vítimas e mostra o objeto que contém este id
     for ( let item of totaisParaMapa ){
@@ -484,7 +493,7 @@ function marcaEstado( event ) {
     // Mostra em um pop-up o nome do estado e a quantidade de vítimas
     balao.style.display = "block";
 
-    balao.textContent = `${ uf } \nAmeaça de morte: ${ totalAmeaca } \nTentativa de assassinato: ${ totalTentativa } \nAssassinato ${ totalAssassinato }`;
+    balao.textContent = `${ uf } \nAmeaça de morte: ${ totalAmeaca } \nTentativa de assassinato: ${ totalTentativa } \nAssassinato: ${ totalAssassinato }`;
 
 
     // Move o balão de acordo com o mouse
